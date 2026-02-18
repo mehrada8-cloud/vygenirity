@@ -1,0 +1,46 @@
+name: Extract ZIP archive
+
+on:
+  workflow_dispatch:
+    inputs:
+      zip_path:
+        description: "Path to the ZIP file in the repository"
+        required: true
+        default: "hh.zip"
+      destination:
+        description: "Destination directory for extraction"
+        required: true
+        default: "."
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate ZIP path
+        run: |
+          if [ ! -f "${{ github.event.inputs.zip_path }}" ]; then
+            echo "ZIP file not found: ${{ github.event.inputs.zip_path }}"
+            exit 1
+          fi
+
+      - name: Extract archive
+        run: unzip -o "${{ github.event.inputs.zip_path }}" -d "${{ github.event.inputs.destination }}"
+
+      - name: Commit extracted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "chore: extract ${{ github.event.inputs.zip_path }}"
+            git push
+          else
+            echo "No changes to commit."
+          fi
