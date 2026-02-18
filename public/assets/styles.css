@@ -1476,6 +1476,7 @@ body.admin .floating-menu {
 .admin-card {
   border: 1px solid var(--border);
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.8), var(--card));
+  display: block;
 }
 
 [data-theme="dark"] .admin-card {
