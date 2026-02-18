@@ -20,7 +20,7 @@ $availableSymbols = array_keys($priceData);
     <?php if ($error = flash('error')): ?>
         <div class="alert error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
-    <form method="post" action="/admin/signals/save" class="form-grid deluxe">
+    <form method="post" action="/admin/signals/save" class="form-grid deluxe signal-form">
         <?php if ($signal): ?>
             <input type="hidden" name="id" value="<?= $signal['id'] ?>">
         <?php endif; ?>
@@ -76,7 +76,7 @@ $availableSymbols = array_keys($priceData);
             <?= $availableSymbols ? implode('، ', array_map('htmlspecialchars', $availableSymbols)) : 'هنوز داده‌ای ثبت نشده است.' ?>
             <p class="warning" data-symbol-warning></p>
         </div>
-        <fieldset>
+        <fieldset class="signal-form__categories">
             <legend>دسته‌بندی‌ها</legend>
             <div class="chip-group">
                 <?php foreach ($categories as $category): ?>

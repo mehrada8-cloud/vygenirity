@@ -1554,3 +1554,220 @@ body.admin .floating-menu {
     align-items: flex-start;
   }
 }
+
+/* Admin UX refresh */
+.admin-main {
+  background:
+    radial-gradient(circle at 95% 5%, rgba(59, 130, 246, 0.16), transparent 30%),
+    radial-gradient(circle at 5% 90%, rgba(34, 197, 94, 0.12), transparent 36%);
+}
+
+.admin-topbar {
+  border: 1px solid var(--border);
+  background: linear-gradient(140deg, color-mix(in srgb, var(--card) 92%, #1d4ed8 8%), var(--card));
+}
+
+.admin-card {
+  border-radius: 28px;
+  padding: 26px;
+}
+
+.card-header {
+  gap: 18px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.primary-link {
+  border-radius: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 191, 99, 0.22);
+}
+
+.admin-kpis {
+  margin-top: 16px;
+  margin-bottom: 4px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.admin-kpis.compact {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+.admin-kpi {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--card) 86%, var(--primary-soft));
+  display: grid;
+  gap: 6px;
+}
+
+.admin-kpi__label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.admin-kpi__value {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.admin-kpi.is-positive {
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+.admin-kpi.is-warning {
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+.admin-kpi.is-muted {
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.admin-toolbar {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--card) 94%, var(--primary-soft));
+}
+
+.admin-search span,
+.admin-filter span {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
+.admin-search input,
+.admin-filter select {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 88%, #111827 12%);
+}
+
+.table.admin-table {
+  margin-top: 14px;
+  gap: 10px;
+}
+
+.admin-table .table-row {
+  grid-template-columns: 1.25fr 0.8fr 0.7fr 1.3fr minmax(160px, 1fr);
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background: color-mix(in srgb, var(--card) 92%, #0f172a 8%);
+  transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grid.two .admin-table .table-row {
+  grid-template-columns: 1fr 0.75fr 0.7fr 1fr 0.95fr 0.95fr 1.3fr;
+}
+
+.admin-table .table-row:not(.header):hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
+}
+
+.admin-table .table-row.header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: color-mix(in srgb, var(--card) 85%, #334155 15%);
+  border-style: dashed;
+}
+
+.cell-title {
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.18);
+  color: #f59e0b;
+}
+
+.row-actions {
+  gap: 10px;
+}
+
+.row-actions .link,
+.row-actions .inline-form button {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.signal-close-form {
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--card) 90%, #1f2937 10%);
+}
+
+.signal-close-form select,
+.signal-close-form input {
+  max-width: 130px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: inherit;
+}
+
+.signal-form {
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 16px 18px;
+}
+
+.signal-form .checkbox,
+.signal-form .note,
+.signal-form fieldset,
+.signal-form button[type='submit'] {
+  grid-column: 1 / -1;
+}
+
+.signal-form fieldset {
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.signal-form legend {
+  padding: 0 8px;
+  color: var(--muted);
+}
+
+.signal-form__categories {
+  background: color-mix(in srgb, var(--card) 88%, #0f172a 12%);
+}
+
+@media (max-width: 1080px) {
+  .admin-table .table-row,
+  .grid.two .admin-table .table-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-table .table-row.header {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-card {
+    padding: 18px;
+  }
+
+  .admin-main {
+    padding: 18px;
+  }
+
+  .signal-form {
+    grid-template-columns: 1fr;
+  }
+
+  .signal-close-form {
+    flex-wrap: wrap;
+  }
+}
