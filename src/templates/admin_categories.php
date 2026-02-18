@@ -2,6 +2,19 @@
 /** @var array $categories */
 $success = flash('success');
 $error = flash('error');
+$totalCategories = count($categories);
+$activeCategories = 0;
+$closedCategories = 0;
+$deletedCategories = 0;
+foreach ($categories as $category) {
+    if (!empty($category['deleted_at'])) {
+        $deletedCategories++;
+    } elseif (!empty($category['closed_at'])) {
+        $closedCategories++;
+    } else {
+        $activeCategories++;
+    }
+}
 ?>
 <section class="grid two">
     <div class="card admin-card">
@@ -40,6 +53,24 @@ $error = flash('error');
     <div class="card admin-card">
         <h2>لیست دسته‌بندی‌ها</h2>
         <p class="muted">حذف امن بدون تداخل با سیگنال‌های قبلی.</p>
+        <div class="admin-kpis">
+            <article class="admin-kpi">
+                <span class="admin-kpi__label">کل دسته‌ها</span>
+                <strong class="admin-kpi__value"><?= $totalCategories ?></strong>
+            </article>
+            <article class="admin-kpi is-positive">
+                <span class="admin-kpi__label">فعال</span>
+                <strong class="admin-kpi__value"><?= $activeCategories ?></strong>
+            </article>
+            <article class="admin-kpi is-warning">
+                <span class="admin-kpi__label">بسته</span>
+                <strong class="admin-kpi__value"><?= $closedCategories ?></strong>
+            </article>
+            <article class="admin-kpi is-muted">
+                <span class="admin-kpi__label">حذف‌شده</span>
+                <strong class="admin-kpi__value"><?= $deletedCategories ?></strong>
+            </article>
+        </div>
         <div class="admin-toolbar">
             <label class="admin-search" for="category-search-input">
                 <span>جستجو</span>
@@ -70,15 +101,15 @@ $error = flash('error');
                 $status = $category['deleted_at'] ? 'deleted' : (!empty($category['closed_at']) ? 'closed' : 'active');
                 ?>
                 <div class="table-row" data-row="categories" data-searchable="<?= htmlspecialchars(strtolower($category['name'] . ' ' . $category['slug'])) ?>" data-status="<?= $status ?>">
-                    <span><?= htmlspecialchars($category['name']) ?></span>
+                    <span class="cell-title"><?= htmlspecialchars($category['name']) ?></span>
                     <span class="mono"><?= htmlspecialchars($category['slug']) ?></span>
                     <span>
                         <?php if ($category['deleted_at']): ?>
-                            حذف شده
+                            <span class="badge badge-muted">حذف شده</span>
                         <?php elseif (!empty($category['closed_at'])): ?>
-                            بسته شده
+                            <span class="badge badge-warning">بسته شده</span>
                         <?php else: ?>
-                            فعال
+                            <span class="badge badge-success">فعال</span>
                         <?php endif; ?>
                     </span>
                     <span class="mono">

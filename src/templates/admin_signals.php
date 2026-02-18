@@ -3,6 +3,9 @@
 /** @var array $categoryMap */
 $success = flash('success');
 $error = flash('error');
+$totalSignals = count($signals);
+$openSignals = count(array_filter($signals, static fn(array $item): bool => $item['status'] === 'open'));
+$closedSignals = $totalSignals - $openSignals;
 ?>
 <section class="card admin-card">
     <div class="card-header">
@@ -11,6 +14,20 @@ $error = flash('error');
             <p class="muted">ایجاد، ویرایش و بستن سریع سیگنال‌ها با کنترل کامل.</p>
         </div>
         <a class="primary-link" href="/admin/signals/new">ایجاد سیگنال جدید</a>
+    </div>
+    <div class="admin-kpis compact">
+        <article class="admin-kpi">
+            <span class="admin-kpi__label">کل سیگنال‌ها</span>
+            <strong class="admin-kpi__value"><?= $totalSignals ?></strong>
+        </article>
+        <article class="admin-kpi is-positive">
+            <span class="admin-kpi__label">سیگنال فعال</span>
+            <strong class="admin-kpi__value"><?= $openSignals ?></strong>
+        </article>
+        <article class="admin-kpi is-muted">
+            <span class="admin-kpi__label">سیگنال بسته</span>
+            <strong class="admin-kpi__value"><?= $closedSignals ?></strong>
+        </article>
     </div>
     <?php if ($success): ?>
         <div class="alert success"><?= htmlspecialchars($success) ?></div>
@@ -42,7 +59,7 @@ $error = flash('error');
         </div>
         <?php foreach ($signals as $signal): ?>
             <div class="table-row" data-row="signals" data-status="<?= $signal['status'] ?>" data-searchable="<?= htmlspecialchars(strtolower($signal['title'] . ' ' . $signal['pair'])) ?>">
-                <span><?= htmlspecialchars($signal['title']) ?></span>
+                <span class="cell-title"><?= htmlspecialchars($signal['title']) ?></span>
                 <span class="mono"><?= htmlspecialchars($signal['pair']) ?></span>
                 <span>
                     <span class="badge <?= $signal['status'] === 'open' ? 'badge-success' : 'badge-muted' ?>">
